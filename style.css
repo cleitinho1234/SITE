@@ -1,15 +1,47 @@
-{
-"name": "Detector de Apps Suspeitos",
-"short_name": "AntiVirus Apps",
-"start_url": "index.html",
-"display": "standalone",
-"background_color": "#0f172a",
-"theme_color": "#0f172a",
-"icons": [
-{
-"src": "icon.png",
-"sizes": "192x192",
-"type": "image/png"
+body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background:#f4f4f4;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
-]
+
+header {
+    text-align:center;
+    padding:20px;
+    background:#007bff;
+    color:white;
+    width:100%;
+}
+
+button {
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    background:#28a745;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover {
+    background:#218838;
+}
+
+#solucao {
+    margin-top:20px;
+    padding:15px;
+    background:white;
+    border-radius:5px;
+    width:90%;
+    max-width:500px;
+    text-align:left;
+}
+
+#busca-problema {
+    margin-top:30px;
+    text-align:center;
 }
