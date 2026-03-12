@@ -4,150 +4,116 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Página Divertida</title>
+
 <style>
-body, html{
-  margin:0;
-  padding:0;
-  height:100%;
-  overflow:hidden;
-  background:black;
-  font-family:monospace;
-  color:white;
+
+body{
+margin:0;
+overflow:hidden;
+background:black;
+font-family:monospace;
 }
-/* barras falsas */
-.fakeBar{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  width:90%;
-  background:#333;
-  padding:10px;
-  border-radius:5px;
-  text-align:center;
-  pointer-events:none;
-  z-index:10001;
-}
-#fakeBarTop{top:10px;}
-#fakeBarMiddle{top:50%; transform:translate(-50%,-50%);}
+
 #crashContainer{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:9999;
-  pointer-events:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
 }
+
 .crashImage{
-  position:absolute;
-  width:40px;
-  height:40px;
-  opacity:0.9;
-  transition:all 2.5s ease;
+position:absolute;
+width:40px;
+height:40px;
+transition:all 2s;
 }
+
 #endCrash{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  z-index:10000;
-  padding:15px;
-  font-size:18px;
-  background:red;
-  color:white;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  display:none;
+position:fixed;
+bottom:20px;
+right:20px;
+background:red;
+color:white;
+padding:15px;
+border:none;
+border-radius:10px;
+display:none;
+font-size:18px;
 }
+
 </style>
 </head>
+
 <body>
 
-<div class="fakeBar" id="fakeBarTop">DADOS VAZADOS</div>
-<div class="fakeBar" id="fakeBarMiddle">DADOS VAZADOS</div>
-
 <div id="crashContainer"></div>
-<button id="endCrash">⬆ Voltar</button>
 
-<!-- Áudios -->
-<audio id="errorSound" src="error.mp3" preload="auto"></audio>
-<audio id="threatSound" src="alerta_ameaca.mp3" preload="auto"></audio>
+<button id="endCrash">Voltar</button>
+
+<audio id="alerta" src="alerta_ameaca.mp3"></audio>
 
 <script>
-const crashContainer = document.getElementById("crashContainer");
-const endCrash = document.getElementById("endCrash");
-const errorSound = document.getElementById("errorSound");
-const threatSound = document.getElementById("threatSound");
 
-function crashPrank(){
-  let total = 50;
+const container = document.getElementById("crashContainer")
+const alerta = document.getElementById("alerta")
+const voltar = document.getElementById("endCrash")
 
-  for(let i=0;i<total;i++){
-    setTimeout(()=>{
-      const img = document.createElement("img");
-      img.src="bsod.png";
-      img.className="crashImage";
+function iniciar(){
 
-      let size = 20 + Math.random()*40;
-      img.style.width = size+"px";
-      img.style.height = size+"px";
+alerta.volume = 1
+alerta.play()
 
-      img.style.top = Math.random()*window.innerHeight+"px";
-      img.style.left = Math.random()*window.innerWidth+"px";
+let total = 50
 
-      crashContainer.appendChild(img);
+for(let i=0;i<total;i++){
 
-      // toca som de erro individual
-      const audio = new Audio("error.mp3");
-      audio.volume=1;
-      audio.play();
+setTimeout(()=>{
 
-      // crescimento
-      setTimeout(()=>{
-        let big = 150 + Math.random()*200;
-        img.style.width = big+"px";
-        img.style.height = big+"px";
-        img.style.top = Math.random()*(window.innerHeight - big) + "px";
-        img.style.left = Math.random()*(window.innerWidth - big) + "px";
-      },50);
+let img = document.createElement("img")
 
-    },i*150);
-  }
+img.src = "bsod.png"
+img.className="crashImage"
 
-  // toca áudio de alerta_ameaca imediatamente
-  setTimeout(()=>{ 
-    threatSound.volume = 1;
-    threatSound.play();
-  }, 500);
+let size = 20 + Math.random()*40
 
-  // depois do alerta_ameaca terminar, fala a mensagem divertida
-  threatSound.onended = ()=>{
-    if('speechSynthesis' in window){
-      let msg = new SpeechSynthesisUtterance(
-        "Calma! Isso é apenas uma brincadeira, você está seguro!"
-      );
-      msg.lang="pt-BR";
-      msg.rate=0.9;
-      speechSynthesis.speak(msg);
-    }
-  }
+img.style.width=size+"px"
+img.style.height=size+"px"
 
-  // botão aparecer após 50 segundos
-  setTimeout(()=>{ endCrash.style.display="block"; }, 50000);
+img.style.top=Math.random()*window.innerHeight+"px"
+img.style.left=Math.random()*window.innerWidth+"px"
+
+container.appendChild(img)
+
+let som = new Audio("error.mp3")
+som.volume=1
+som.play()
+
+setTimeout(()=>{
+
+let big = 200 + Math.random()*200
+
+img.style.width=big+"px"
+img.style.height=big+"px"
+
+},50)
+
+}, i*150)
+
 }
 
-// botão voltar
-endCrash.onclick=()=>{
-  crashContainer.innerHTML="";
-  endCrash.style.display="none";
-};
+setTimeout(()=>{
+voltar.style.display="block"
+},50000)
 
-// iniciar pegadinha após clique (para permitir áudio no celular)
-window.onload=()=>{
-  document.body.addEventListener("click", ()=>{
-    crashPrank();
-  }, {once:true});
-};
+}
+
+window.onload=iniciar
+
+voltar.onclick=()=>{
+container.innerHTML=""
+}
+
 </script>
 
 </body>
