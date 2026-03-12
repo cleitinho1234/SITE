@@ -1,44 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOS Celular</title>
-<link rel="stylesheet" href="style.css">
-</head>
 <body>
-<header>
-    <h1>SOS Celular</h1>
-    <p>Resolva problemas do seu celular em menos de 1 minuto!</p>
-</header>
+    <canvas id="matrix"></canvas>
 
-<!-- Botões principais -->
-<section id="botoes-problemas">
-    <button data-problema="android-xiaomi">Android & Xiaomi</button>
-    <button data-problema="iphone">iPhone</button>
-    <button data-problema="comum-ambos">Problemas Comuns a Ambos</button>
-</section>
+    <header>
+        <h1>SOS Hacker Simulator</h1>
+    </header>
 
-<!-- Área para modelos -->
-<section id="solucao"></section>
+    <section>
+        <p>Bem-vindo ao simulador!</p>
+    </section>
 
-<!-- Busca por problema -->
-<section id="busca-problema">
-    <h2>Descreva seu problema:</h2>
-    <input type="text" id="input-problema" placeholder="Ex: meu celular não conecta no Wi-Fi">
-    <button id="btn-buscar">Buscar solução</button>
-</section>
-
-<!-- Modal profissional -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span id="fechar" class="fechar">&times;</span>
-        <h3 id="modal-titulo">Solução</h3>
-        <div id="texto-solucao" class="texto-solucao"></div>
-        <button id="btn-copiar">Copiar Solução</button>
-    </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="matrix.js"></script>
 </body>
-</html>
