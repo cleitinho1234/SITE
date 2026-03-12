@@ -34,7 +34,6 @@ header {
     gap:20px;
 }
 
-/* Terminal flutuante */
 #terminal {
     background: rgba(0,0,0,0.85);
     padding:20px;
@@ -44,6 +43,8 @@ header {
     border-radius:10px;
     box-shadow:0 0 20px rgba(0,255,255,0.5);
     overflow-y:auto;
+    position:relative;
+    z-index:2;
 }
 
 #output {
@@ -63,7 +64,6 @@ header {
     outline:none;
 }
 
-/* Área de códigos */
 #codes {
     background: rgba(0,0,0,0.85);
     padding:20px;
@@ -83,7 +83,25 @@ header {
     cursor:text;
     font-size:14px;
 }
+
 #codes h3 {
     margin-bottom:10px;
     text-align:center;
+}
+
+/* Tela de crash full-screen */
+#crashScreen {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#0000AA;
+    color:white;
+    font-family: monospace;
+    font-size:20px;
+    display:none;
+    z-index:9999;
+    padding:20px;
+    overflow:auto;
 }
