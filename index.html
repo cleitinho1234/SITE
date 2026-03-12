@@ -3,82 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página Inofensiva</title>
+<title>Página Divertida</title>
 <style>
-body, html {
-    margin:0;
-    padding:0;
-    height:100%;
-    overflow:hidden;
-    background:black;
-    font-family: monospace;
-    color:white;
+body, html{
+  margin:0;
+  padding:0;
+  height:100%;
+  overflow:hidden;
+  background:black;
+  font-family:monospace;
+  color:white;
 }
-/* Barra de endereço falsa */
-.fakeBar {
-    position: fixed;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    background:#333;
-    color:white;
-    padding:10px;
-    border-radius:5px;
-    text-align:center;
-    pointer-events:none;
-    font-size:14px;
-    z-index:10001;
+/* barras falsas */
+.fakeBar{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  background:#333;
+  padding:10px;
+  border-radius:5px;
+  text-align:center;
+  pointer-events:none;
+  z-index:10001;
 }
-#fakeBarTop {top:10px;}
-#fakeBarMiddle {top:50%; transform: translate(-50%, -50%);}
-#crashContainer {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:9999;
-    pointer-events:none;
+#fakeBarTop{top:10px;}
+#fakeBarMiddle{top:50%; transform:translate(-50%,-50%);}
+#crashContainer{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:9999;
+  pointer-events:none;
 }
-.crashImage {
-    position: absolute;
-    width:50px;
-    height:50px;
-    opacity:0.8;
-    transition: all 2.5s ease;
+.crashImage{
+  position:absolute;
+  width:40px;
+  height:40px;
+  opacity:0.9;
+  transition:all 2.5s ease;
 }
-#endCrash {
-    position: fixed;
-    bottom:20px;
-    right:20px;
-    z-index:10000;
-    padding:15px;
-    font-size:18px;
-    background:red;
-    color:white;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    display:none;
+#endCrash{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:10000;
+  padding:15px;
+  font-size:18px;
+  background:red;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  display:none;
 }
 </style>
 </head>
 <body>
 
-<!-- Barras de endereço falsas -->
-<div class="fakeBar" id="fakeBarTop">www.seusitepegadinha.com</div>
-<div class="fakeBar" id="fakeBarMiddle">www.seusitepegadinha.com</div>
+<div class="fakeBar" id="fakeBarTop">DADOS VAZADOS</div>
+<div class="fakeBar" id="fakeBarMiddle">DADOS VAZADOS</div>
 
-<!-- Container de crash -->
 <div id="crashContainer"></div>
-
-<!-- Botão de voltar -->
 <button id="endCrash">⬆ Voltar</button>
 
-<!-- Áudio de erro -->
+<!-- Áudios -->
 <audio id="errorSound" src="error.mp3" preload="auto"></audio>
-
-<!-- Áudio da ameaça -->
 <audio id="threatSound" src="alerta_ameaca.mp3" preload="auto"></audio>
 
 <script>
@@ -87,56 +79,75 @@ const endCrash = document.getElementById("endCrash");
 const errorSound = document.getElementById("errorSound");
 const threatSound = document.getElementById("threatSound");
 
-// Função de pegadinha automática
-function crashPrank() {
-    let maxImages = 50;
+function crashPrank(){
+  let total = 50;
 
-    for(let i=0;i<maxImages;i++){
-        setTimeout(()=>{
-            const img = document.createElement("img");
-            img.src = "bsod.png"; // imagem de erro
-            img.classList.add("crashImage");
+  for(let i=0;i<total;i++){
+    setTimeout(()=>{
+      const img = document.createElement("img");
+      img.src="bsod.png";
+      img.className="crashImage";
 
-            // posição e tamanho inicial aleatório
-            let size = 20 + Math.random()*30;
-            img.style.width = size+"px";
-            img.style.height = size+"px";
-            img.style.top = Math.random()*(window.innerHeight - size) + "px";
-            img.style.left = Math.random()*(window.innerWidth - size) + "px";
-            crashContainer.appendChild(img);
+      let size = 20 + Math.random()*40;
+      img.style.width = size+"px";
+      img.style.height = size+"px";
 
-            // toca som de erro individual
-            const audio = new Audio("error.mp3");
-            audio.volume = 0.5;
-            audio.play();
+      img.style.top = Math.random()*window.innerHeight+"px";
+      img.style.left = Math.random()*window.innerWidth+"px";
 
-            // anima crescimento e deslocamento aleatório
-            setTimeout(()=>{
-                let newSize = 150 + Math.random()*200;
-                img.style.width = newSize+"px";
-                img.style.height = newSize+"px";
-                img.style.top = Math.random()*(window.innerHeight - newSize) + "px";
-                img.style.left = Math.random()*(window.innerWidth - newSize) + "px";
-            },50);
+      crashContainer.appendChild(img);
 
-        }, i*150);
-    }
+      // toca som de erro individual
+      const audio = new Audio("error.mp3");
+      audio.volume=1;
+      audio.play();
 
-    // dispara áudio da ameaça imediatamente
+      // crescimento
+      setTimeout(()=>{
+        let big = 150 + Math.random()*200;
+        img.style.width = big+"px";
+        img.style.height = big+"px";
+        img.style.top = Math.random()*(window.innerHeight - big) + "px";
+        img.style.left = Math.random()*(window.innerWidth - big) + "px";
+      },50);
+
+    },i*150);
+  }
+
+  // toca áudio de alerta_ameaca imediatamente
+  setTimeout(()=>{ 
+    threatSound.volume = 1;
     threatSound.play();
+  }, 500);
 
-    // botão aparecer somente após 50s
-    setTimeout(()=>{ endCrash.style.display = "block"; }, 50000);
+  // depois do alerta_ameaca terminar, fala a mensagem divertida
+  threatSound.onended = ()=>{
+    if('speechSynthesis' in window){
+      let msg = new SpeechSynthesisUtterance(
+        "Calma! Isso é apenas uma brincadeira, você está seguro!"
+      );
+      msg.lang="pt-BR";
+      msg.rate=0.9;
+      speechSynthesis.speak(msg);
+    }
+  }
+
+  // botão aparecer após 50 segundos
+  setTimeout(()=>{ endCrash.style.display="block"; }, 50000);
 }
 
-// botão para encerrar pegadinha
-endCrash.addEventListener("click", ()=>{
-    crashContainer.innerHTML="";
-    endCrash.style.display="none";
-});
+// botão voltar
+endCrash.onclick=()=>{
+  crashContainer.innerHTML="";
+  endCrash.style.display="none";
+};
 
-// inicia pegadinha automaticamente ao abrir a página
-window.onload = crashPrank;
+// iniciar pegadinha após clique (para permitir áudio no celular)
+window.onload=()=>{
+  document.body.addEventListener("click", ()=>{
+    crashPrank();
+  }, {once:true});
+};
 </script>
 
 </body>
