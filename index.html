@@ -1,122 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Detector de Apps Suspeitos</title>
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-
-<style>
-
-body{
-margin:0;
-background:#0f172a;
-color:white;
-font-family:Arial;
-text-align:center;
-}
-
-header{
-background:#020617;
-padding:20px;
-font-size:22px;
-}
-
-button{
-padding:15px 30px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#22c55e;
-color:white;
-cursor:pointer;
-margin-top:30px;
-}
-
-#resultado{
-margin-top:30px;
-font-size:18px;
-}
-
-.card{
-background:#1e293b;
-margin:10px;
-padding:15px;
-border-radius:10px;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Celular</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header>
+        <h1>SOS Celular</h1>
+        <p>Resolva problemas do seu celular em menos de 1 minuto!</p>
+    </header>
 
-<header>
-🔎 Detector de Apps com Vírus de Anúncio
-</header>
+    <section id="botoes-problemas">
+        <button data-problema="nao-liga">Celular não liga</button>
+        <button data-problema="tela-travando">Tela travando</button>
+        <button data-problema="bateria">Bateria descarrega rápido</button>
+    </section>
 
-<p>
-Este app ajuda a encontrar aplicativos instalados recentemente que podem estar mostrando anúncios.
-</p>
+    <section id="solucao"></section>
 
-<button onclick="scan()">ESCANEAR</button>
+    <section id="busca-problema">
+        <h2>Descreva seu problema:</h2>
+        <input type="text" id="input-problema" placeholder="Ex: meu celular não conecta no Wi-Fi">
+        <button id="btn-buscar">Buscar solução</button>
+    </section>
 
-<div id="resultado"></div>
-
-<script>
-
-function scan(){
-
-let lista = [
-"FlashLight Ultra",
-"Super Cleaner",
-"Battery Turbo",
-"WhatsApp",
-"Instagram"
-]
-
-let resultado = document.getElementById("resultado")
-
-resultado.innerHTML = "<h3>Apps suspeitos encontrados:</h3>"
-
-lista.forEach(app =>{
-
-resultado.innerHTML += `
-<div class="card">
-
-⚠️ ${app}<br>
-Instalado recentemente<br><br>
-
-<button onclick="desinstalar()">DESINSTALAR</button>
-
-</div>
-`
-
-})
-
-}
-
-function desinstalar(){
-
-alert("Abrindo tela de desinstalação do Android")
-
-}
-
-</script>
-
-<script>
-
-if('serviceWorker' in navigator){
-
-navigator.serviceWorker.register("sw.js")
-
-}
-
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
