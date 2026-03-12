@@ -12,8 +12,6 @@ body{
   font-family:monospace;
   color:white;
 }
-
-/* botão iniciar */
 #start{
   position:absolute;
   top:50%;
@@ -27,8 +25,6 @@ body{
   cursor:pointer;
   z-index:100;
 }
-
-/* container de imagens */
 #crashContainer{
   position:fixed;
   top:0;
@@ -36,16 +32,12 @@ body{
   width:100%;
   height:100%;
 }
-
-/* imagens de erro */
 .crashImage{
   position:absolute;
   width:40px;
   height:40px;
   transition:all 2s;
 }
-
-/* botão voltar */
 #voltar{
   position:fixed;
   bottom:20px;
@@ -58,6 +50,21 @@ body{
   display:none;
   font-size:18px;
 }
+/* Notificação falsa */
+#notificacao{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#222;
+  border:2px solid #00ff00;
+  padding:20px;
+  color:white;
+  font-size:16px;
+  border-radius:10px;
+  display:none;
+  z-index:2000;
+  box-shadow: 0 0 10px #00ff00;
+}
 </style>
 </head>
 <body>
@@ -65,6 +72,11 @@ body{
 <button id="start">ENTRAR</button>
 <div id="crashContainer"></div>
 <button id="voltar">Voltar</button>
+
+<div id="notificacao">
+  📧 Sua senha foi alterada com sucesso!<br>
+  
+</div>
 
 <!-- Áudios -->
 <audio id="alerta" src="alerta_ameaca.mp3" preload="auto"></audio>
@@ -75,71 +87,68 @@ const start = document.getElementById("start")
 const container = document.getElementById("crashContainer")
 const alerta = document.getElementById("alerta")
 const voltar = document.getElementById("voltar")
-const errorSound = document.getElementById("errorSound")
+const notificacao = document.getElementById("notificacao")
 
 function iniciar(){
-
   start.style.display="none"
 
-  // toca alerta_ameaca
-  alerta.volume = 1
+  alerta.volume=1
   alerta.play()
 
-  let total = 50
-
+  let total=50
   for(let i=0;i<total;i++){
     setTimeout(()=>{
-      const img = document.createElement("img")
+      const img=document.createElement("img")
       img.src="bsod.png"
       img.className="crashImage"
-
-      let size = 20 + Math.random()*40
-      img.style.width = size + "px"
-      img.style.height = size + "px"
-      img.style.top = Math.random()*window.innerHeight + "px"
-      img.style.left = Math.random()*window.innerWidth + "px"
-
+      let size=20+Math.random()*40
+      img.style.width=size+"px"
+      img.style.height=size+"px"
+      img.style.top=Math.random()*window.innerHeight+"px"
+      img.style.left=Math.random()*window.innerWidth+"px"
       container.appendChild(img)
-
       // toca som de erro individual
       const som = new Audio("error.mp3")
-      som.volume = 1
+      som.volume=1
       som.play()
-
-      // anima crescimento
+      // crescimento
       setTimeout(()=>{
-        let big = 150 + Math.random()*200
-        img.style.width = big + "px"
-        img.style.height = big + "px"
-        img.style.top = Math.random()*(window.innerHeight - big) + "px"
-        img.style.left = Math.random()*(window.innerWidth - big) + "px"
+        let big=150+Math.random()*200
+        img.style.width=big+"px"
+        img.style.height=big+"px"
+        img.style.top=Math.random()*(window.innerHeight-big)+"px"
+        img.style.left=Math.random()*(window.innerWidth-big)+"px"
       },50)
-
     }, i*150)
   }
 
-  // fala em voz alta após o alerta terminar
-  alerta.onended = ()=>{
+  // voz divertida após alerta
+  alerta.onended=()=>{
     if('speechSynthesis' in window){
-      const msg = new SpeechSynthesisUtterance(
-        "ALERTA SEU EMAIL E SENHA FORAM ESPOSTOS!"
-      )
+      const msg=new SpeechSynthesisUtterance("Calma! Isso é apenas uma brincadeira, você está seguro!")
       msg.lang="pt-BR"
-      msg.rate = 0.9
+      msg.rate=0.9
       speechSynthesis.speak(msg)
     }
+    // mostra notificação 2s depois
+    setTimeout(()=>{
+      notificacao.style.display="block"
+    },2000)
   }
 
-  // libera botão voltar após 50 segundos
-  setTimeout(()=>{ voltar.style.display = "block" }, 50000)
+  // botão voltar após 50s
+  setTimeout(()=>{ voltar.style.display="block" },50000)
 }
 
-start.onclick = iniciar
+// botão iniciar
+start.onclick=iniciar
 
-voltar.onclick = ()=>{
-  container.innerHTML = ""
-  voltar.style.display = "none"
-  start.style.display = "block"
+// botão voltar
+voltar.onclick=()=>{
+  container.innerHTML=""
+  voltar.style.display="none"
+  notificacao.style.display="none"
+  start.style.display="block"
 }
 </script>
 
