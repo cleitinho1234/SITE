@@ -1,35 +1,37 @@
 const input = document.getElementById("input");
 const output = document.getElementById("output");
 
-// comandos simulados
+// Comandos simulados
 const comandos = {
-    "echo hello": "Hello World",
+    'echo "hello world"': "Hello World",
     "date": new Date().toString(),
     "whoami": "guest_user",
     "pwd": "/home/guest_user",
     "uptime": "up 3 days, 4 hours, 12 minutes",
-    "help": "Comandos disponíveis: echo hello, date, whoami, pwd, uptime"
+    "dance": "💃🕺🎵 Simulação de dança em execução... 💃🕺🎵",
+    "attack simulate": "Iniciando ataque simulado...\n[#####---------] 50%\nAtaque concluído com sucesso (simulação).",
+    "matrix": "Exibindo códigos caindo... (simulação)",
+    "clear": function(){ output.innerHTML = ""; return ""; },
+    "help": "Comandos disponíveis: echo \"hello world\", date, whoami, pwd, uptime, dance, attack simulate, matrix, clear"
 };
 
-// envia comando
+// Envia comando ao pressionar Enter
 input.addEventListener("keydown", function(e){
     if(e.key === "Enter"){
-        const comando = input.value.toLowerCase().trim();
+        const comando = input.value.trim().toLowerCase();
+        let resposta;
         if(comandos[comando]){
-            output.innerHTML += `$ ${comando}\n${comandos[comando]}\n\n`;
+            if(typeof comandos[comando] === "function") {
+                resposta = comandos[comando]();
+            } else {
+                resposta = comandos[comando];
+            }
         } else {
-            output.innerHTML += `$ ${comando}\nComando não reconhecido. Digite 'help' para ver os comandos.\n\n`;
+            resposta = "Comando não reconhecido. Digite 'help' para ver os comandos.";
         }
+
+        output.innerHTML += `$ ${input.value}\n${resposta}\n\n`;
         input.value = "";
         output.scrollTop = output.scrollHeight;
     }
-});
-
-// copiar código do lado para input
-const codeBlocks = document.querySelectorAll("#codes pre");
-codeBlocks.forEach(block => {
-    block.addEventListener("click", () => {
-        input.value = block.textContent;
-        input.focus();
-    });
 });
